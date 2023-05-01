@@ -18,6 +18,24 @@ public:
     {
         m_color.SetRGB(defaultRed, defaultGreen, defaultBlue, defaultAlp);
     }
+
+    Sphere()
+    {
+        m_color.SetRGB(defaultRed, defaultGreen, defaultBlue, defaultAlp);
+    }
+
+    void setCenter(int x, int y, int z)
+    {
+        m_x0 = x;
+        m_y0 = y;
+        m_z0 = z;
+    }
+
+    void setRadius(unsigned int R)
+    {
+        m_R = R;
+    }
+
     ~Sphere()
     {
         m_x0 = Poison;

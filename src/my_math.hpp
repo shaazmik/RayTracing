@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-const size_t Poison  = -1337;
+const size_t Poison  = 747385748;
 const double Epsylon = 0.0000001;
 
 

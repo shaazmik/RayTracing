@@ -9,6 +9,8 @@
 
 #define $$ printLogFuncVar(__LINE__, __FUNCTION__);
 
+#define LOG_MSG(text) fprintf(stdout, "%s\n", text);
+
 #define LOG_CUR_VAR(var) CurLogMsg(__FUNCTION__, #var, var);
 
 #define LOG_OBJECT(id, name) objectLogMsg(id, #name);

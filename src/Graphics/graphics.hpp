@@ -10,19 +10,43 @@ namespace PGL
 {
     class Graphics
     {
-    public:
-        Graphics(const int width, const int height): m_width(width), m_height(height)
+    private:
+        Graphics(): m_width(WinWidth), m_height(WinHeight)
         {
-            m_window.create(sf::VideoMode(width, height), "Paramon_64");
+            m_window.create(sf::VideoMode(m_width, m_height), "Paramon_64");
         }
 
-        Graphics() = default;
+        int m_width  = WinWidth;
+        int m_height = WinHeight;
+
+        inline static Graphics* instancePtr = nullptr;
+
+        bool m_winOpen = true;
+
+    public:
+
+        sf::RenderWindow m_window;
 
         ~Graphics()
         {
             m_window.clear();
             m_winOpen = false;
         }
+
+        static Graphics* getInstance()
+        {
+            if (instancePtr == nullptr)
+            {
+                instancePtr = new Graphics();
+
+                return instancePtr;
+            }
+            else
+            {
+                return instancePtr;
+            }
+        }
+
 
         void setSize(sf::RectangleShape& widget, const int width, const int height);
 
@@ -47,13 +71,6 @@ namespace PGL
             m_window.clear();
         }
 
-        sf::RenderWindow m_window;
-
-    private:
-        int m_width  = WinWidth;
-        int m_height = WinHeight;
-
-        bool m_winOpen = true;
     };
 }
 
