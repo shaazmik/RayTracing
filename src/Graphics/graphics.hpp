@@ -48,7 +48,7 @@ namespace PGL
         }
 
 
-        void setSize(sf::RectangleShape& widget, const int width, const int height);
+        void setSize(sf::RectangleShape& widget, const unsigned int width, const unsigned int height);
 
         void setFillColor(sf::RectangleShape& widget, PsColor& color);
 

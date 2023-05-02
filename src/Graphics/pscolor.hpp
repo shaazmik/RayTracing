@@ -9,15 +9,28 @@ namespace PGL
     class PsColor
     {
     public:
-
-        PsColor() = default;
-
         PsColor(unsigned char R, unsigned char G, unsigned char B, unsigned char Alpha)
         {
             m_currentClr.r = R;
             m_currentClr.g = G;
             m_currentClr.b = B;
             m_currentClr.a = Alpha;    
+        }
+
+        PsColor()
+        {
+            m_currentClr.r = 0;
+            m_currentClr.g = 0;
+            m_currentClr.b = 0;
+            m_currentClr.a = 0;    
+        }
+
+        PsColor(const PsColor& color)
+        {
+            m_currentClr.r = color.m_currentClr.r;
+            m_currentClr.g = color.m_currentClr.g;
+            m_currentClr.b = color.m_currentClr.b;
+            m_currentClr.a = color.m_currentClr.a;
         }
 
         ~PsColor()

@@ -14,7 +14,7 @@ const unsigned char defaultAlp   = 255;
 class Sphere
 {
 public:
-    Sphere(double x0, double y0, double z0, double R): m_x0(x0), m_y0(y0), m_z0(z0), m_R(R)
+    Sphere(int x0, int y0, int z0, int R): m_x0(x0), m_y0(y0), m_z0(z0), m_R(R)
     {
         m_color.SetRGB(defaultRed, defaultGreen, defaultBlue, defaultAlp);
     }

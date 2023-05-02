@@ -4,11 +4,12 @@ FILE* PSlogfile = startLogging();
 
 FILE* startLogging()
 {
-    FILE* logger = fopen("./log/log.txt", "w");
-
+    FILE* logger = fopen("./src/log/log.txt", "w");
+    
     if (!logger)
     {
         fprintf(stderr, "Logger can't launch. Something with creating file.\n");
+        assert(logger);
         return nullptr;
     }
 

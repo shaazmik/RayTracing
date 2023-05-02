@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <iostream>
-
+#include <assert.h>
 
 #define $ fprintf(stdout, "Here on \"%d\" line in func:\"%s\"\n", __LINE__, __FUNCTION__);
 

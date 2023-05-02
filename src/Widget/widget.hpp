@@ -13,25 +13,23 @@ public:
     }
 
     Widget()
-    {
-    }
+    {}
 
-    ~Widget()
-    {
-    }
+    virtual ~Widget()
+    {}
 
-    void setSize();
+    virtual bool checkOnWidget(int x, int y){return ((m_posX - m_width < x) && (x < m_posX + m_width) && (m_posY - m_height < y) && (y < m_posY + m_height));}
+    virtual void onClick(int x, int y){}
+    virtual void draw ();
+
+
+    void setSize(unsigned int width, unsigned int height);
     void setColor(PGL::PsColor& color);
-    void draw ();
-    void close();
-    double getPosX();
-    double getPosY();
-    int    getWidth();
-    int    getHeight();
-    bool   checkPointInWidget(int x, int y);
+    int getPosX();
+    int getPosY();
     void move(int xOffset, int yOffset);
 
-private:
+protected:
     int m_posX   = 0;
     int m_posY   = 0;
     int m_width  = 0;
@@ -39,5 +37,7 @@ private:
 
     sf::RectangleShape m_rectangle;
 };
+
+
 
 #endif

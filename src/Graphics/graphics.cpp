@@ -1,6 +1,6 @@
 #include "./graphics.hpp"
 
-void PGL::Graphics::setSize(sf::RectangleShape& widget, const int width, const int height)
+void PGL::Graphics::setSize(sf::RectangleShape& widget, const unsigned int width, const int unsigned height)
 {
     widget.setSize(sf::Vector2f(width, height));
 }
