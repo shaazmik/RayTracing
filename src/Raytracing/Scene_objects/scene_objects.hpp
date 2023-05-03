@@ -205,13 +205,17 @@ class Non_trans_sphere : public Sphere
             material_(material)
             {}
 
+        void setColor(PGL::PsColor& col)
+        {
+            material_.setColor(col);
+        }
 
-            PGL::PsColor get_rgb(const Vector& point, 
-                        const Ray& ray,
-                        const Object_manager& obj_manager) const override
-                {
-                    return material_.get_rgb(point, ray, *this, obj_manager);
-                }
+        PGL::PsColor get_rgb(const Vector& point, 
+                             const Ray& ray,
+                             const Object_manager& obj_manager) const override
+        {
+            return material_.get_rgb(point, ray, *this, obj_manager);
+        }
 };
 
 //---------------------------------------------------------
@@ -257,6 +261,7 @@ class Trans_sphere : public Sphere
         Trans_sphere            (const Trans_sphere& that) = default;
         Trans_sphere& operator= (const Trans_sphere& that) = default;
         ~Trans_sphere()                                    = default;
+
 
         PGL::PsColor get_rgb(const Vector& point, 
                     const Ray& ray,

@@ -77,6 +77,11 @@ class Material
         Material& operator= (const Material& that) = default;
         ~Material()                                = default;
 
+        void setColor(PGL::PsColor& col)
+        {
+            col_ = col;
+        }
+
         PGL::PsColor get_rgb(const Vector& point, 
                        const Ray& ray,
                        const Object& self,

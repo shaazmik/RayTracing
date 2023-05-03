@@ -14,7 +14,7 @@ public:
 
     ~SphereColorButton() = default;
 
-    void initObject(Sphere* sphere, PGL::PsColor color)
+    void initObject(Non_trans_sphere* sphere, PGL::PsColor color)
     {
         setColor(color);
         m_sphere = sphere;
