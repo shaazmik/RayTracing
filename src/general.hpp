@@ -6,7 +6,7 @@
 #include <SFML/Window.hpp>
 
 #include "./Vector/vector.hpp"
-#include "./Sphere/sphere.hpp"
+#include "./Raytracing/Scene_objects/scene_objects.hpp"
 #include "./Graphics/graphics.hpp"
 #include "./Graphics/pscolor.hpp"
 #include "./Factory/factory.hpp"

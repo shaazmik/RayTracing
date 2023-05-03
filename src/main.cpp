@@ -17,13 +17,9 @@ int main()
     scene->setColor(sceneColor);
 
 
-    Sphere* sphere = Factory::getInstance()->makeSphere();
-    sphere->setCenter(100, 100, 50);
-    sphere->setRadius(200);
-
     btn->setSize(40,25);
     btn->move(1850, 1040);
-    btn->initObject(sphere, btn1Color);
+    // btn->initObject(sphere, btn1Color);
 
     desktop->setCapacity(20);
     desktop->addWidget(scene);

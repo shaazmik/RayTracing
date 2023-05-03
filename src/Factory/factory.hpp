@@ -16,7 +16,7 @@ class Factory
         inline static Factory* instancePtr = nullptr;
         Factory() = default;
 
-        Sphere** m_sphereArr = nullptr;
+        Non_trans_sphere** m_sphereArr = nullptr;
         unsigned int m_sphereArrCapacity = 0;
         unsigned int m_sphereArrCount    = 0;
 
@@ -98,7 +98,7 @@ class Factory
             if (m_sphereArr == nullptr && capacity > 0)
             {
                 m_sphereArrCapacity = capacity;
-                m_sphereArr = new Sphere*[capacity];
+                m_sphereArr = new Non_trans_sphere*[capacity];
             }
             else
             {
@@ -133,23 +133,23 @@ class Factory
             return (createWidget<SphereColorButton>());
         }
 
-        Sphere* makeSphere()
-        {
-            if (m_sphereArrCount < m_sphereArrCapacity)
-            {
-                m_sphereArr[m_sphereArrCount] = new Sphere();
-                m_sphereArrCount++;
-                return m_sphereArr[m_sphereArrCount - 1];
-            }
-            else
-            {
-                LOG_MSG("[ERROR]: SPHERE NUMBERS OVERFLOW");
-                LOG_CUR_VAR(m_widgetArrCount);
-                LOG_CUR_VAR(m_widgetArrCapacity);
-                assert(0);
-                return nullptr;
-            }
-        }
+        // Non_trans_sphere* makeSphere()
+        // {
+        //     if (m_sphereArrCount < m_sphereArrCapacity)
+        //     {
+        //         m_sphereArr[m_sphereArrCount] = new ();
+        //         m_sphereArrCount++;
+        //         return m_sphereArr[m_sphereArrCount - 1];
+        //     }
+        //     else
+        //     {
+        //         LOG_MSG("[ERROR]: SPHERE NUMBERS OVERFLOW");
+        //         LOG_CUR_VAR(m_widgetArrCount);
+        //         LOG_CUR_VAR(m_widgetArrCapacity);
+        //         assert(0);
+        //         return nullptr;
+        //     }
+        // }
 };
 
 

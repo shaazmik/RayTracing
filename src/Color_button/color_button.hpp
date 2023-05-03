@@ -3,7 +3,7 @@
 
 #include "../Graphics/graphics.hpp"
 #include "../Graphics/pscolor.hpp"
-#include "../Sphere/sphere.hpp"
+#include "../Raytracing/Scene_objects/scene_objects.hpp"
 #include "../Abstract_button/abstract_button.hpp"
 
 class SphereColorButton : public AbstractButton
@@ -25,7 +25,7 @@ public:
     {
         if (m_sphere != nullptr)
         {
-            m_sphere->setColor(m_color);
+            LOG_MSG("COLOR");
         }
         else
         {

@@ -1,7 +1,7 @@
 #ifndef RAYTRACING_SCENE
 #define RAYTRACING_SCENE
 
-#include "../Sphere/sphere.hpp"
+#include "./Scene_objects/scene_objects.hpp"
 #include "../Widget/widget.hpp"
 #include "../Graphics/graphics.hpp"
 #include "../log/log.hpp"
