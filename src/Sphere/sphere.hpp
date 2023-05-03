@@ -42,12 +42,17 @@ public:
         m_y0 = Poison;
         m_z0 = Poison;
         m_R  = Poison;
-        m_color.SetRed();
+        m_color.SetRGB(255, 255, 0, 255);
     }
 
     void setColor(unsigned char Red, unsigned char Green, unsigned char Blue, unsigned char Alp)
     {
         m_color.SetRGB(Red, Green, Blue, Alp);
+    }
+
+    void setColor(PGL::PsColor& color)
+    {
+        m_color = color;
     }
     
 private:

@@ -4,20 +4,26 @@
 int main()
 {
     Factory::getInstance()->setWidgetCapacity(10);
-    WidgetManager*   desktop = Factory::getInstance()->makeWidgetManager();
-    AbstractButton*  btn     = Factory::getInstance()->makeAbstractButton();
-    RayTracingScene* scene   = Factory::getInstance()->makeRayTracingScene();
+    Factory::getInstance()->setSphereCapacity(5);
 
-    PGL::PsColor color(220, 100, 50, 255);
-    PGL::PsColor color2(0, 250,  10, 255);
+    WidgetManager*     desktop = Factory::getInstance()->makeWidgetManager();
+    SphereColorButton* btn     = Factory::getInstance()->makeSphereColorButton();
+    RayTracingScene*   scene   = Factory::getInstance()->makeRayTracingScene();
+
+    PGL::PsColor sceneColor(0, 0, 0, 255);
+    PGL::PsColor btn1Color(0, 250,  10, 255);
 
     scene->setSize(1920, 1080);
-    scene->setColor(color);
+    scene->setColor(sceneColor);
 
+
+    Sphere* sphere = Factory::getInstance()->makeSphere();
+    sphere->setCenter(100, 100, 50);
+    sphere->setRadius(200);
 
     btn->setSize(40,25);
     btn->move(1850, 1040);
-    btn->setColor(color2);
+    btn->initObject(sphere, btn1Color);
 
     desktop->setCapacity(20);
     desktop->addWidget(scene);

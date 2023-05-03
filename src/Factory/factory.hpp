@@ -4,7 +4,8 @@
 #include "../Widget/widget.hpp"
 #include "../Widget_manager/widget_manager.hpp"
 #include "../Abstract_button/abstract_button.hpp"
-#include "../Raytracing_scene/raytracing_scene.hpp"
+#include "../Color_button/color_button.hpp"
+#include "../Raytracing/raytracing_scene.hpp"
 #include "../Graphics/graphics.hpp"
 #include "../log/log.hpp"
 
@@ -51,7 +52,14 @@ class Factory
             {
                 delete m_widgetArr[i];
             }
+
+            for (int i = 0; i < m_sphereArrCount; i++)
+            {
+                delete m_sphereArr[i];
+            }
+
             delete[] m_widgetArr;
+            delete[] m_sphereArr;
         }
 
         Factory(const Factory& obj) = delete;
@@ -118,6 +126,11 @@ class Factory
         RayTracingScene* makeRayTracingScene()
         {
             return (createWidget<RayTracingScene>());
+        }
+
+        SphereColorButton* makeSphereColorButton()
+        {
+            return (createWidget<SphereColorButton>());
         }
 
         Sphere* makeSphere()
