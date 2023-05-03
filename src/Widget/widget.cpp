@@ -31,5 +31,7 @@ int Widget::getPosY()
 
 void Widget::setSize(unsigned int width, unsigned int height)
 {
+    m_width  = width;
+    m_height = height;
     PGL::Graphics::getInstance()->setSize(m_rectangle, width, height);
 }

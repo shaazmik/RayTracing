@@ -4,34 +4,54 @@
 int main()
 {
     Factory::getInstance()->setWidgetCapacity(10);
-    WidgetManager* widgetman = Factory::getInstance()->makeWidgetManager();
-    Widget* widget1          = Factory::getInstance()->makeWidget();
-    AbstractButton* btn      = Factory::getInstance()->makeAbstractButton();
+    WidgetManager*   desktop = Factory::getInstance()->makeWidgetManager();
+    AbstractButton*  btn     = Factory::getInstance()->makeAbstractButton();
     RayTracingScene* scene   = Factory::getInstance()->makeRayTracingScene();
 
     PGL::PsColor color(220, 100, 50, 255);
-    PGL::PsColor color2(100, 50, 10, 255);
+    PGL::PsColor color2(0, 250,  10, 255);
 
-    widget1->move(0,500);
-    widget1->setSize(500, 200);
-    widget1->setColor(color);
+    scene->setSize(1920, 1080);
+    scene->setColor(color);
 
-    scene->setSize(1000, 500);
-    scene->move(10, 10);
 
-    btn->setSize(20,50);
-    btn->move(1000, 250);
+    btn->setSize(40,25);
+    btn->move(1850, 1040);
     btn->setColor(color2);
 
-    widgetman->setCapacity(20);
-    widgetman->addWidget(scene);
-    widgetman->addWidget(btn);
-    widgetman->addWidget(widget1);
+    desktop->setCapacity(20);
+    desktop->addWidget(scene);
+    desktop->addWidget(btn);
 
-    widgetman->draw();
-    PGL::Graphics::getInstance()->display();
+    PGL::Graphics* graphLib = PGL::Graphics::getInstance();
+    PGL::PsEvent   event    = PGL::PsEvent();
+
+    while (graphLib->isOpen())
+    {
+        while (graphLib->pollEvent(event))
+        {
+            switch(event.getEventType())
+            {
+                case PGL::PsEvent::Closed:
+                    graphLib->close();
+                    break;
+
+                case PGL::PsEvent::MouseButtonPressed:
+                    desktop->controller(event);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        desktop->draw();
+        graphLib->display();
+        graphLib->clear();
+    }
+
     delete Factory::getInstance();
+    delete graphLib;
 
-    sleep(3);
     return 0;
 }

@@ -3,7 +3,8 @@
 
 #include "../Widget/widget.hpp"
 #include "../log/log.hpp"
-
+#include "../Graphics/graphics.hpp"
+#include "../Graphics/psevent.hpp"
 
 
 class WidgetManager : public Widget
@@ -25,62 +26,28 @@ class WidgetManager : public Widget
             delete[] m_widgetArr;
         }
 
-        void setCapacity(unsigned int capacity)
+        virtual void controller(PGL::PsEvent event)
         {
-            if (m_widgetArr == nullptr)
+            switch(event.getEventType())
             {
-                m_widgetArrCapacity = capacity;
-                m_widgetArr = new Widget*[capacity];
-            }
-            else
-            {
-                LOG_MSG("[ERROR]: MEMORY")
+                case PGL::PsEvent::MouseButtonPressed:
+                    if (event.getMouseButton() == PGL::Mouse::Left)
+                    {
+                        onClick(event.getMouseClickX(), event.getMouseClickY());
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
-        void addWidget(Widget* widget)
-        {
-            if (m_widgetArrCapacity > m_widgetArrCount)
-            {
-                m_widgetArr[m_widgetArrCount] = widget;
-                m_widgetArrCount++;
-            }
-            else
-            {
-                LOG_MSG("[ERROR]: WIDGET MANAGER IS OVERFLOW");
-                logPrintVar(m_widgetArr);
-                assert(0);
-            }
-        }
+        void onClick(int x, int y) override;
+        void draw() override;
 
-        void deleteWidget()
-        {
-            if (m_widgetArrCount >= 0)
-            {
-                m_widgetArr[m_widgetArrCount] = nullptr;
-            }
-            else
-            {
-                LOG_MSG("[ERROR]: WIDGET MANAGER IS EMPTY");
-                assert(0);
-            }
-        }
+        void setCapacity(unsigned int capacity);
+        void addWidget(Widget* widget);
+        void deleteWidget();
 
-        void onClick(int x, int y) override
-        {
-            for (int i = 0; i < m_widgetArrCount; i++)
-            {
-                m_widgetArr[i]->onClick(x, y);
-            }
-        }
-
-        void draw() override
-        {
-            for (int i = 0; i < m_widgetArrCount; i++)
-            {
-                m_widgetArr[i]->draw();
-            }
-        }
 
     private:
         Widget** m_widgetArr             = nullptr;

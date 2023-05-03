@@ -5,6 +5,7 @@
 #include "../constants.hpp"
 #include "../log/log.hpp"
 #include "./pscolor.hpp"
+#include "./psevent.hpp"
 
 namespace PGL
 {
@@ -56,19 +57,29 @@ namespace PGL
 
         void move(sf::RectangleShape& widget, float xOffset, float yOffset);
 
-        void display()
+        inline void display()
         {
             m_window.display();
         }
 
-        bool isOpen()
+        inline bool isOpen()
         {
             return m_window.isOpen();
         }
 
-        void clear()
+        inline void clear()
         {
             m_window.clear();
+        }
+
+        inline void close()
+        {
+            m_window.close();
+        }
+
+        inline bool pollEvent(PGL::PsEvent& event)
+        {
+            return m_window.pollEvent(event.m_event);
         }
 
     };

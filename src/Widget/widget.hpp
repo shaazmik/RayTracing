@@ -18,7 +18,7 @@ public:
     virtual ~Widget()
     {}
 
-    virtual bool checkOnWidget(int x, int y){return ((m_posX - m_width < x) && (x < m_posX + m_width) && (m_posY - m_height < y) && (y < m_posY + m_height));}
+    virtual bool checkOnWidget(int x, int y) {return ((m_posX < x) && (x < m_posX + m_width) && (m_posY < y) && (y < m_posY + m_height));}
     virtual void onClick(int x, int y){}
     virtual void draw ();
 
