@@ -81,6 +81,7 @@ int raytrace_test()
     Non_trans_sphere  matte {Vector{  5, -1.5,   7}, 1.5, Material{Colour(237, 149, 245),   1, 1}};
     Non_trans_sphere  allum {Vector{  2, -1.5,   3}, 1.5, Material{Colour(178, 237, 232), 0.9, 1}};
     Non_trans_sphere  mirror{Vector{  3, -2.5,  18}, 0.5, Material{Colour(0, 150, 200),   0, 1}};
+    Non_trans_sphere  mirror1{Vector{  3, -2.2,  11}, 0.7, Material{Colour(190, 0, 200),   0, 1}};
     Trans_sphere      trans {Vector{ -1,   -2,  15},   1, 1.5};
     Sphere_light      light {Vector{ -3 , -2.2,  15}, 0.8, Colour(139, 247, 160)};
 
@@ -90,6 +91,7 @@ int raytrace_test()
     objects.push_back(&trans);
     objects.push_back(&light);
     objects.push_back(&mirror);
+    objects.push_back(&mirror1);
     
     Non_trans_plane bottom{Vector{0, 1, 0}, Vector{  0, -3,   0}, Material{Colour(255, 255, 255),   1, 1}};
     Non_trans_plane left  {Vector{1, 0, 0}, Vector{-10,  0,   0}, Material{Colour(0, 159,  53),   1, 1}};
@@ -117,8 +119,8 @@ int raytrace_test()
 
     Colour newClr         = Colour(202, 115, 40);
     Colour newClrLight    = Colour(75, 0, 130);
-    PGL::PsColor  btnClr  = PGL::PsColor(250, 200, 10, 255);
-    PGL::PsColor  btn2Clr = PGL::PsColor(25, 25, 200, 255);
+    PGL::PsColor  btnClr  = PGL::PsColor(202, 115, 40, 255);
+    PGL::PsColor  btn2Clr = PGL::PsColor(75, 0, 130, 255);
 
     btn->setSize(40,25);
     btn->move(1060, 975);
@@ -135,7 +137,7 @@ int raytrace_test()
     rayScene->setSize(Wndw_x_size, Wndw_y_size);
     rayScene->_init();
 
-    desktop->setCapacity(20);
+    desktop->setCapacity(10);
     desktop->addWidget(btn);
     desktop->addWidget(btn2);
 
