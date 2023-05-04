@@ -12,9 +12,8 @@ namespace PGL
     class Graphics
     {
     private:
-        Graphics(): m_width(WinWidth), m_height(WinHeight)
+        Graphics(): m_width(WinWidth), m_height(WinHeight), m_window{sf::VideoMode(m_width, m_height), "", (sf::Uint32)(sf::Style::Resize | sf::Style::Close)}
         {
-            m_window.create(sf::VideoMode(m_width, m_height), "RayTrace");
         }
 
         int m_width  = WinWidth;
@@ -26,7 +25,7 @@ namespace PGL
 
     public:
 
-        sf::RenderWindow m_window;
+        sf::RenderWindow m_window{};
 
         ~Graphics()
         {

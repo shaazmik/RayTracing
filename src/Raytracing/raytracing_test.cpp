@@ -147,6 +147,9 @@ int raytrace_test()
     Object_manager object_manager{&scene};
 
 
+    char keys_pressed[Control_keys_num] = { 0 };
+    int  frames_still = 0;
+
 
     while (graphLib->isOpen())
     {
@@ -166,9 +169,6 @@ int raytrace_test()
                     break;
             }
         }
-
-        char keys_pressed[Control_keys_num] = { 0 };
-        int  frames_still = 0;
 
 
         bool is_changed = update_scene(&(scene.view), keys_pressed);
@@ -209,6 +209,7 @@ int raytrace_test()
         rayScene->pixels_draw();
         desktop->draw();
         frames_still++;
+
         graphLib->display();
     }
 
