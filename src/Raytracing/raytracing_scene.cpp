@@ -1,6 +1,6 @@
 #include "./raytracing_scene.hpp"
 
-PGL::PsColor RayTracingScene::get_pixel(const Vector& pxl_pos, unsigned char* alpha)
+Colour RayTracingScene::get_pixel(const Vector& pxl_pos, unsigned char* alpha)
 {
     unsigned x_pos = (unsigned) pxl_pos.x();
     unsigned y_pos = (unsigned) pxl_pos.y();
@@ -10,7 +10,7 @@ PGL::PsColor RayTracingScene::get_pixel(const Vector& pxl_pos, unsigned char* al
 
 //---------------------------------------------------------
 
-PGL::PsColor RayTracingScene::get_pixel(unsigned x_pos, unsigned y_pos, unsigned char* alpha)
+Colour RayTracingScene::get_pixel(unsigned x_pos, unsigned y_pos, unsigned char* alpha)
 {
     if (x_pos < m_width && y_pos < m_height)
     {
@@ -23,17 +23,17 @@ PGL::PsColor RayTracingScene::get_pixel(unsigned x_pos, unsigned y_pos, unsigned
         if (alpha)
             *alpha = (unsigned char) pixels_[cur_pos + 3];
 
-        return PGL::PsColor(r, g, b, 255);
+        return Colour(r, g, b);
     }
     else
     {
-        return PGL::PsColor(0, 0, 0, 255);
+        return Colour(0, 0, 0);
     }
 }
 
 //---------------------------------------------------------
 
-bool RayTracingScene::set_pixel(const Vector& pxl_pos, const PGL::PsColor& pxl_val, unsigned char alpha)
+bool RayTracingScene::set_pixel(const Vector& pxl_pos, const Colour& pxl_val, unsigned char alpha)
 {
     unsigned x_pos = (unsigned) pxl_pos.x();
     unsigned y_pos = (unsigned) pxl_pos.y();
@@ -43,7 +43,7 @@ bool RayTracingScene::set_pixel(const Vector& pxl_pos, const PGL::PsColor& pxl_v
 
 //---------------------------------------------------------
 
-bool RayTracingScene::set_pixel(unsigned x_pos, unsigned y_pos, const PGL::PsColor& pxl_val, unsigned char alpha)
+bool RayTracingScene::set_pixel(unsigned x_pos, unsigned y_pos, const Colour& pxl_val, unsigned char alpha)
 {
     if (x_pos < m_width && y_pos < m_height)
     {

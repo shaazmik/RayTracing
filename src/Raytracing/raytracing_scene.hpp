@@ -46,11 +46,11 @@ class RayTracingScene : public Widget
             sprite_.setTexture(texture_);
         }
 
-        bool set_pixel(const Vector& pxl_pos,          const PGL::PsColor& pxl_val, unsigned char alpha);
-        bool set_pixel(unsigned x_pos, unsigned y_pos, const PGL::PsColor& pxl_val, unsigned char alpha);
+        bool set_pixel(const Vector& pxl_pos,          const Colour& pxl_val, unsigned char alpha);
+        bool set_pixel(unsigned x_pos, unsigned y_pos, const Colour& pxl_val, unsigned char alpha);
 
-        PGL::PsColor get_pixel(const Vector& pxl_pos,          unsigned char* alpha);
-        PGL::PsColor get_pixel(unsigned x_pos, unsigned y_pos, unsigned char* alpha);
+        Colour get_pixel(const Vector& pxl_pos,          unsigned char* alpha);
+        Colour get_pixel(unsigned x_pos, unsigned y_pos, unsigned char* alpha);
         
         void pixels_update()
         {

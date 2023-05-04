@@ -6,6 +6,7 @@
 #include "../../my_math.hpp"
 #include "../../Graphics/pscolor.hpp"
 #include "../../log/log.hpp"
+#include "../colour.hpp"
 #include "../Base_object/base_object.hpp"
 
 class Plane : public Object 
@@ -66,7 +67,7 @@ class Plane : public Object
                 return prev_pos;
             }
 
-        virtual PGL::PsColor get_rgb(const Vector& point, 
+        virtual Colour get_rgb(const Vector& point, 
                                const Ray& ray,
                                const Object_manager& obj_manager) const = 0;        
 
@@ -105,12 +106,12 @@ class Non_trans_plane : public Plane
             material_(material)
             {}
 
-        void setColor(PGL::PsColor color)
+        void setColor(Colour color)
         {
             material_.setColor(color);
         }
 
-            PGL::PsColor get_rgb(const Vector& point, 
+            Colour get_rgb(const Vector& point, 
                         const Ray& ray,
                         const Object_manager& obj_manager) const override
                 {
@@ -122,11 +123,11 @@ class Non_trans_plane : public Plane
 
 class Plane_light : public Plane
 {
-    PGL::PsColor col_;
+    Colour col_;
 
     public:
 
-        Plane_light(const Vector& normal, const Vector& pos, const PGL::PsColor& col):
+        Plane_light(const Vector& normal, const Vector& pos, const Colour& col):
             Plane(normal, pos),
             col_(col)
             {}
@@ -135,7 +136,7 @@ class Plane_light : public Plane
         Plane_light& operator= (const Plane_light& that) = default;
         ~Plane_light()                                   = default;
 
-        PGL::PsColor get_rgb(const Vector& point,
+        Colour get_rgb(const Vector& point,
                           const Ray& ray, 
                           const Object_manager& obj_manager) const
         {
@@ -179,9 +180,9 @@ class Sphere : public Object
             return ret;
         }
 
-        PGL::PsColor get_rgb(const Vector& point, 
+        Colour get_rgb(const Vector& point, 
                                const Ray& ray,
-                               const Object_manager& obj_manager) const override{return PGL::PsColor();};
+                               const Object_manager& obj_manager) const override{return Colour();};
 
         Vector get_normal(const Vector& point) const override
         {
@@ -210,12 +211,12 @@ class Non_trans_sphere : public Sphere
             material_(material)
             {}
 
-        void setColor(PGL::PsColor& col)
+        void setColor(Colour& col)
         {
             material_.setColor(col);
         }
 
-        PGL::PsColor get_rgb(const Vector& point, 
+        Colour get_rgb(const Vector& point, 
                              const Ray& ray,
                              const Object_manager& obj_manager) const override
         {
@@ -227,11 +228,11 @@ class Non_trans_sphere : public Sphere
 
 class Sphere_light : public Sphere
 {
-    PGL::PsColor col_;
+    Colour col_;
 
     public:
 
-        Sphere_light(const Vector& pos, double rad, const PGL::PsColor& col):
+        Sphere_light(const Vector& pos, double rad, const Colour& col):
             Sphere(pos, rad),
             col_(col)
             {}
@@ -240,7 +241,7 @@ class Sphere_light : public Sphere
         Sphere_light& operator= (const Sphere_light& that) = default;
         ~Sphere_light()                                    = default;
 
-        PGL::PsColor get_rgb(const Vector& point,
+        Colour get_rgb(const Vector& point,
                           const Ray& ray, 
                           const Object_manager& obj_manager) const
             {
@@ -253,11 +254,11 @@ class Sphere_light : public Sphere
 class Trans_sphere : public Sphere
 {
     double ref_ind_ = 1.5;
-    PGL::PsColor col_ = PGL::PsColor(255, 255, 255, 255);
+    Colour col_ = Colour(255, 255, 255);
 
     public:
 
-        Trans_sphere(const Vector& pos, double rad, double ref_ind, const PGL::PsColor& col = PGL::PsColor(255, 255, 255, 255)):
+        Trans_sphere(const Vector& pos, double rad, double ref_ind, const Colour& col = Colour(255, 255, 255)):
                 Sphere(pos, rad),
                 ref_ind_(ref_ind),
                 col_(col)
@@ -268,7 +269,7 @@ class Trans_sphere : public Sphere
         ~Trans_sphere()                                    = default;
 
 
-        PGL::PsColor get_rgb(const Vector& point, 
+        Colour get_rgb(const Vector& point, 
                     const Ray& ray,
                     const Object_manager& obj_manager) const
             {

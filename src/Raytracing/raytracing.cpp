@@ -50,7 +50,7 @@ Vector refract_vector(const Vector& vector, const Vector& normal, double ref_ind
 
 //---------------------------------------------------------
 
-PGL::PsColor Material::get_rgb(const Vector& point, 
+Colour Material::get_rgb(const Vector& point, 
                          const Ray& ray,
                          const Object& self,
                          const Object_manager& obj_manager) const
@@ -59,7 +59,7 @@ PGL::PsColor Material::get_rgb(const Vector& point,
     Vector n    = self.get_normal(point);
     Vector refl = reflect_vector(l, n);
 
-    PGL::PsColor res(0, 0, 0, 255);
+    Colour res(0, 0, 0);
 
     for (unsigned iter = 0; iter < ray_num_; iter++)
     {
@@ -80,19 +80,19 @@ PGL::PsColor Material::get_rgb(const Vector& point,
 
 //---------------------------------------------------------
 
-PGL::PsColor Object_manager::trace_ray(const Object* self, const Ray& ray) const
+Colour Object_manager::trace_ray(const Object* self, const Ray& ray) const
 {
     if (scene_ptr_ == nullptr)
-        return PGL::PsColor(0, 0, 0, 255);
+        return Colour(0, 0, 0);
 
     if (ray.ref_num == Max_ref)
-        return PGL::PsColor(0, 0, 0, 255);
+        return Colour(0, 0, 0);
 
     Vector point{};
 
     Object* object = find_object_crossing(ray, self, &point);
     if (object == nullptr)
-        return PGL::PsColor(255, 255, 255, 255);
+        return Colour(255, 255, 255);
         
     assert(self != object);
 

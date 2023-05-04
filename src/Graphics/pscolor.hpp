@@ -110,16 +110,18 @@ namespace PGL
             m_currentClr.g = G;
             m_currentClr.b = B;
             m_currentClr.a = Alpha;
+
+            rgb_norm();
         }
 
         inline void set_r(const int r);
         inline void set_g(const int g);
         inline void set_b(const int b);
 
-        inline unsigned int get_r() const {return m_currentClr.r;}
-        inline unsigned int get_g() const {return m_currentClr.g;}
-        inline unsigned int get_b() const {return m_currentClr.b;}
-        inline unsigned int get_a() const {return m_currentClr.a;}
+        inline unsigned char get_r() const {return (unsigned char)m_currentClr.r;}
+        inline unsigned char get_g() const {return (unsigned char)m_currentClr.g;}
+        inline unsigned char get_b() const {return (unsigned char)m_currentClr.b;}
+        inline unsigned char get_a() const {return (unsigned char)m_currentClr.a;}
 
         friend class Graphics;
         friend class Widget;
@@ -133,14 +135,14 @@ namespace PGL
 
 
 
-static const PGL::PsColor Colour_red    (255,   0,   0, 255);
-static const PGL::PsColor Colour_green  (  0, 255,   0, 255);
-static const PGL::PsColor Colour_blue   (  0,   0, 255, 255);
+// static const PGL::PsColor Colour_red    (255,   0,   0, 255);
+// static const PGL::PsColor Colour_green  (  0, 255,   0, 255);
+// static const PGL::PsColor Colour_blue   (  0,   0, 255, 255);
 
-static const PGL::PsColor Colour_white  (255, 255, 255, 255);
-static const PGL::PsColor Colour_black  (  0,   0,   0, 255);
+// static const PGL::PsColor Colour_white  (255, 255, 255, 255);
+// static const PGL::PsColor Colour_black  (  0,   0,   0, 255);
 
-static const PGL::PsColor Colour_yellow (255, 255,   0, 255);
-static const PGL::PsColor Colour_cyan   (  0, 255, 255, 255);
-static const PGL::PsColor Colour_magenta(255,   0, 255, 255);
+// static const PGL::PsColor Colour_yellow (255, 255,   0, 255);
+// static const PGL::PsColor Colour_cyan   (  0, 255, 255, 255);
+// static const PGL::PsColor Colour_magenta(255,   0, 255, 255);
 #endif

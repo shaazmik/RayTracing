@@ -14,7 +14,7 @@ namespace PGL
     private:
         Graphics(): m_width(WinWidth), m_height(WinHeight)
         {
-            m_window.create(sf::VideoMode(m_width, m_height), "Paramon_64");
+            m_window.create(sf::VideoMode(m_width, m_height), "RayTrace");
         }
 
         int m_width  = WinWidth;

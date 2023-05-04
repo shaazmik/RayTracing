@@ -31,7 +31,7 @@ class Object
         virtual Vector set_pos(const Vector& new_pos) = 0; 
 
         // rgb of object at specific point - use tracing
-        virtual PGL::PsColor get_rgb(const Vector& point, 
+        virtual Colour get_rgb(const Vector& point, 
                                const Ray& ray,
                                const Object_manager& obj_manager) const = 0;
 
@@ -55,20 +55,20 @@ class Object
 
 class Material
 {
-    PGL::PsColor col_;
+    Colour col_;
     double matte_coeff_ = 0;
     unsigned ray_num_   = 2; // TODO global
     // прибавлять светимость
     public:
 
-        Material(const PGL::PsColor& col, double matte_coeff, unsigned ray_num):
+        Material(const Colour& col, double matte_coeff, unsigned ray_num):
             col_(col),
             matte_coeff_(matte_coeff),
             ray_num_(ray_num)
             {}
 
         Material():
-            col_(PGL::PsColor(255, 255, 255, 255)),
+            col_(Colour(255, 255, 255)),
             matte_coeff_(0),
             ray_num_(1)
             {}
@@ -77,12 +77,12 @@ class Material
         Material& operator= (const Material& that) = default;
         ~Material()                                = default;
 
-        void setColor(PGL::PsColor& col)
+        void setColor(Colour& col)
         {
             col_ = col;
         }
 
-        PGL::PsColor get_rgb(const Vector& point, 
+        Colour get_rgb(const Vector& point, 
                        const Ray& ray,
                        const Object& self,
                        const Object_manager& obj_manager) const;
@@ -141,7 +141,7 @@ class Object_manager
                 scene_ptr_ = scene_ptr;
             }
 
-        PGL::PsColor trace_ray(const Object* self, const Ray& ray) const;
+        Colour trace_ray(const Object* self, const Ray& ray) const;
 
         Object* find_object_crossing(const Ray& ray, const Object* self, Vector* point) const;
 };

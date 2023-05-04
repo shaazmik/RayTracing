@@ -8,19 +8,17 @@ Vector orthogonal_2d_only(const Vector& v)
 
 Vector operator +(const Vector &v1, const Vector &v2)
 {
-    Vector result(v1.m_x + v2.m_x,
-                  v1.m_y + v2.m_y,
-                  v1.m_z + v2.m_z);
+    Vector result = v1;
+    result += v2;
 
     return result;
 }
 
 Vector operator -(const Vector &v1, const Vector &v2)
 {
-    Vector result(v1.m_x - v2.m_x,
-                  v1.m_y - v2.m_y,
-                  v1.m_z - v2.m_z);
-    
+    Vector result = v1;
+    result -= v2;
+
     return result;
 }
 

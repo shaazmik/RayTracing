@@ -12,8 +12,8 @@ static const int Coordsys_y_min = -5;
 static const unsigned Coordsys_x_pos = 0;
 static const unsigned Coordsys_y_pos = 0;
 
-static const unsigned Wndw_x_size = 720;
-static const unsigned Wndw_y_size = 360;
+static const unsigned Wndw_x_size = 1000;
+static const unsigned Wndw_y_size = 1000;
 
 //---------------------------------------------------------
 
@@ -52,7 +52,7 @@ static void move_view_point(View* view, double forward, double up, double right)
 
 static bool update_scene(View* view, const char keys_pressed[]);
 
-static PGL::PsColor average_rgb(const PGL::PsColor& new_col, const PGL::PsColor& old_col, const int frames_still);
+static Colour average_rgb(const Colour& new_col, const Colour& old_col, const int frames_still);
 
 //=========================================================
 
@@ -77,12 +77,12 @@ int raytrace_test()
 
     std::vector<Object*> objects{};
 
-    Non_trans_sphere  metal {Vector{ -5,    0,   0},   3, Material{PGL::PsColor(123,  57, 204, 255), 0.4, 1}};
-    Non_trans_sphere  matte {Vector{  5, -1.5,   7}, 1.5, Material{PGL::PsColor(237, 149, 245, 255),   1, 1}};
-    Non_trans_sphere  allum {Vector{  2, -1.5,   3}, 1.5, Material{PGL::PsColor(178, 237, 232, 255), 0.9, 1}};
-    Non_trans_sphere  mirror{Vector{  3, -2.5,  18}, 0.5, Material{PGL::PsColor(0, 255, 255, 255),   0, 1}};
+    Non_trans_sphere  metal {Vector{ -5,    0,   0},   3, Material{Colour(123,  57, 204), 0.4, 1}};
+    Non_trans_sphere  matte {Vector{  5, -1.5,   7}, 1.5, Material{Colour(237, 149, 245),   1, 1}};
+    Non_trans_sphere  allum {Vector{  2, -1.5,   3}, 1.5, Material{Colour(178, 237, 232), 0.9, 1}};
+    Non_trans_sphere  mirror{Vector{  3, -2.5,  18}, 0.5, Material{Colour(0, 150, 200),   0, 1}};
     Trans_sphere      trans {Vector{ -1,   -2,  15},   1, 1.5};
-    Sphere_light      light {Vector{ -3 , -2.2,  15}, 0.8, PGL::PsColor(139, 247, 160, 255)};
+    Sphere_light      light {Vector{ -3 , -2.2,  15}, 0.8, Colour(139, 247, 160)};
 
     objects.push_back(&metal);
     objects.push_back(&matte);
@@ -91,12 +91,12 @@ int raytrace_test()
     objects.push_back(&light);
     objects.push_back(&mirror);
     
-    Non_trans_plane bottom{Vector{0, 1, 0}, Vector{  0, -3,   0}, Material{PGL::PsColor(255, 255, 255, 200),   1, 1}};
-    Non_trans_plane left  {Vector{1, 0, 0}, Vector{-10,  0,   0}, Material{PGL::PsColor(255, 159,  53, 200),   1, 1}};
-    Non_trans_plane right {Vector{1, 0, 0}, Vector{+10,  0,   0}, Material{PGL::PsColor( 87, 170, 252, 255),   1, 1}};
-    Non_trans_plane back  {Vector{0, 0, 1}, Vector{  0,  0, -20}, Material{PGL::PsColor(202, 214, 222, 255), 0.5, 1}};
-    Plane_light     top   {Vector{0, 1, 0}, Vector{  0, 10,   0}, PGL::PsColor(255, 255, 255, 255)};
-    Non_trans_plane front {Vector{0, 0, 1}, Vector{  0,  0,  51}, Material{PGL::PsColor(255, 255, 255, 255),   1, 1}};
+    Non_trans_plane bottom{Vector{0, 1, 0}, Vector{  0, -3,   0}, Material{Colour(255, 255, 255),   1, 1}};
+    Non_trans_plane left  {Vector{1, 0, 0}, Vector{-10,  0,   0}, Material{Colour(0, 159,  53),   1, 1}};
+    Non_trans_plane right {Vector{1, 0, 0}, Vector{+10,  0,   0}, Material{Colour( 250, 170, 252),   1, 1}};
+    Non_trans_plane back  {Vector{0, 0, 1}, Vector{  0,  0, -20}, Material{Colour(202, 214, 222), 0.5, 1}};
+    Plane_light     top   {Vector{0, 1, 0}, Vector{  0, 10,   0}, Colour(255, 255, 255)};
+    Non_trans_plane front {Vector{0, 0, 1}, Vector{  0,  0,  51}, Material{Colour(255, 255, 255),   1, 1}};
 
     objects.push_back(&bottom);
     objects.push_back(&top);
@@ -112,20 +112,32 @@ int raytrace_test()
 
     WidgetManager*     desktop    = Factory::getInstance()->makeWidgetManager();
     SphereColorButton* btn        = Factory::getInstance()->makeSphereColorButton();
+    SphereColorButton* btn2       = Factory::getInstance()->makeSphereColorButton();
     RayTracingScene*   rayScene   = Factory::getInstance()->makeRayTracingScene();
 
-    PGL::PsColor btn1Color(0, 250,  10, 255);
-
+    Colour newClr         = Colour(202, 115, 40);
+    Colour newClrLight    = Colour(75, 0, 130);
+    PGL::PsColor  btnClr  = PGL::PsColor(250, 200, 10, 255);
+    PGL::PsColor  btn2Clr = PGL::PsColor(25, 25, 200, 255);
 
     btn->setSize(40,25);
-    btn->move(1850, 1040);
-    btn->initObject(&metal, btn1Color);
+    btn->move(1060, 975);
+    btn->initObject(&metal, newClr);
+    btn->setColor(btnClr);
+
+
+    btn2->setSize(40, 25);
+    btn2->move(1010, 975);
+    btn2->initObject(&allum, newClrLight);
+    btn2->setColor(btn2Clr);
+
 
     rayScene->setSize(Wndw_x_size, Wndw_y_size);
     rayScene->_init();
 
     desktop->setCapacity(20);
     desktop->addWidget(btn);
+    desktop->addWidget(btn2);
 
     PGL::Graphics* graphLib = PGL::Graphics::getInstance();
     PGL::PsEvent   event    = PGL::PsEvent();
@@ -177,10 +189,10 @@ int raytrace_test()
                 Vector direction = get_direction(scene.view, cur_point);
 
                 Ray ray{scene.view.view_point, direction, 0};
-                PGL::PsColor cur_point_rgb = 1.2 * object_manager.trace_ray(nullptr, ray);
+                Colour cur_point_rgb = 1.18 * object_manager.trace_ray(nullptr, ray);
 
-                PGL::PsColor prev = rayScene->get_pixel(cur_point_r, nullptr);
-                PGL::PsColor res  = average_rgb(cur_point_rgb, prev, frames_still);
+                Colour prev = rayScene->get_pixel(cur_point_r, nullptr);
+                Colour res  = average_rgb(cur_point_rgb, prev, frames_still);
 
                 bool is_set = rayScene->set_pixel(cur_point_r, res, Alpha_default);
                 {
@@ -198,7 +210,6 @@ int raytrace_test()
         desktop->draw();
         frames_still++;
         graphLib->display();
-        graphLib->clear();
     }
 
     delete Factory::getInstance();
@@ -209,12 +220,13 @@ int raytrace_test()
 
 //---------------------------------------------------------
 
-static PGL::PsColor average_rgb(const PGL::PsColor& new_col, const PGL::PsColor& old_col, const int frames_still)
+static Colour average_rgb(const Colour& new_col, const Colour& old_col, const int frames_still)
 {
+    Vector new_v = (Vector) new_col;
+    Vector old_v = (Vector) old_col;
 
-    PGL::PsColor aver = (old_col * frames_still + new_col) * (1.0 / (frames_still + 1.0));
-
-    return aver;
+    Vector aver = (old_v * frames_still + new_v) * (1.0 / (frames_still + 1.0));
+    return Colour{aver};
 }
 
 //---------------------------------------------------------
