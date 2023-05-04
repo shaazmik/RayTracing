@@ -2,7 +2,7 @@
 #define OBJECT_HPP
 
 
-#include "../../Vector/vector.hpp"
+#include "../Vector/vector.hpp"
 #include "../../Graphics/pscolor.hpp"
 
 

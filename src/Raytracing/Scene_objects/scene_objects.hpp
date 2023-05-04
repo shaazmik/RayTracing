@@ -105,6 +105,11 @@ class Non_trans_plane : public Plane
             material_(material)
             {}
 
+        void setColor(PGL::PsColor color)
+        {
+            material_.setColor(color);
+        }
+
             PGL::PsColor get_rgb(const Vector& point, 
                         const Ray& ray,
                         const Object_manager& obj_manager) const override

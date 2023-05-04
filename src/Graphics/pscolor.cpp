@@ -67,6 +67,7 @@ PGL::PsColor PGL::operator* (const double m, const PGL::PsColor& c)
     unsigned int g = c.m_currentClr.g * m;
     unsigned int b = c.m_currentClr.b * m;
 
+
     return PGL::PsColor(r, g, b, 255);
 }
 
@@ -74,7 +75,7 @@ PGL::PsColor PGL::col_average(const PGL::PsColor& a, const PGL::PsColor& b)
 {
     PGL::PsColor sum = a + b;
 
-    sum *= 0.5;
+    sum *= 0.1;
 
     return PGL::PsColor((unsigned) sum.m_currentClr.r, (unsigned) sum.m_currentClr.g, (unsigned) sum.m_currentClr.b, 255);
 }

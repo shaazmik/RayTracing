@@ -25,7 +25,8 @@ public:
     {
         if (m_sphere != nullptr)
         {
-            LOG_MSG("COLOR");
+            LOG_MSG("ACTION")
+            m_sphere->setColor(m_color);
         }
         else
         {
@@ -36,7 +37,7 @@ public:
     }
 
 private:
-    Sphere* m_sphere     = nullptr;
+    Non_trans_sphere* m_sphere     = nullptr;
     PGL::PsColor m_color; 
     
 };

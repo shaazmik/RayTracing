@@ -2,19 +2,21 @@
 #define PS_COLOR_HPP
 
 #include <SFML/Graphics.hpp>
-
+#include "../log/log.hpp"
 namespace PGL
 {
 
     class PsColor
     {
     public:
-        PsColor(unsigned char R, unsigned char G, unsigned char B, unsigned char Alpha)
+        PsColor(unsigned int R, unsigned int G, unsigned int B, unsigned int Alpha)
         {
             m_currentClr.r = R;
             m_currentClr.g = G;
             m_currentClr.b = B;
-            m_currentClr.a = Alpha;    
+            m_currentClr.a = Alpha;
+
+            rgb_norm();
         }
 
         PsColor()
@@ -22,7 +24,9 @@ namespace PGL
             m_currentClr.r = 0;
             m_currentClr.g = 0;
             m_currentClr.b = 0;
-            m_currentClr.a = 0;    
+            m_currentClr.a = 0; 
+
+            rgb_norm();  
         }
 
         PsColor(const PsColor& color)
@@ -31,6 +35,8 @@ namespace PGL
             m_currentClr.g = color.m_currentClr.g;
             m_currentClr.b = color.m_currentClr.b;
             m_currentClr.a = color.m_currentClr.a;
+
+            rgb_norm();
         }
 
         ~PsColor()
@@ -58,13 +64,13 @@ namespace PGL
 
         PsColor& operator%= (const PGL::PsColor& c)
         {
-            unsigned int r1 = m_currentClr.r;
-            unsigned int g1 = m_currentClr.g;
-            unsigned int b1 = m_currentClr.b;
-            
-            unsigned int r2 = c.m_currentClr.r;
-            unsigned int g2 = c.m_currentClr.g;
-            unsigned int b2 = c.m_currentClr.b;
+            double r1 = m_currentClr.r;
+            double g1 = m_currentClr.g;
+            double b1 = m_currentClr.b;
+
+            double r2 = c.m_currentClr.r;
+            double g2 = c.m_currentClr.g;
+            double b2 = c.m_currentClr.b;
 
             
             r1 = r1 * (1 / 255.0);
@@ -83,7 +89,6 @@ namespace PGL
             m_currentClr.r = r;
             m_currentClr.g = g;            
             m_currentClr.b = b;
-            m_currentClr.a = 255;
             rgb_norm();
                 
             return *this;
@@ -110,6 +115,11 @@ namespace PGL
         inline void set_r(const int r);
         inline void set_g(const int g);
         inline void set_b(const int b);
+
+        inline unsigned int get_r() const {return m_currentClr.r;}
+        inline unsigned int get_g() const {return m_currentClr.g;}
+        inline unsigned int get_b() const {return m_currentClr.b;}
+        inline unsigned int get_a() const {return m_currentClr.a;}
 
         friend class Graphics;
         friend class Widget;

@@ -4,7 +4,6 @@
 
 
 #include "./raytracing_scene.hpp"
-#include "../Vector/vector.hpp"
 #include "./Base_object/base_object.hpp"
 #include "./raytracing_config.hpp"
 

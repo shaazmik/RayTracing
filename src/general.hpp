@@ -5,7 +5,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 
-#include "./Vector/vector.hpp"
+#include "./Raytracing/Vector/vector.hpp"
 #include "./Raytracing/Scene_objects/scene_objects.hpp"
 #include "./Graphics/graphics.hpp"
 #include "./Graphics/pscolor.hpp"
@@ -14,6 +14,7 @@
 const int Width  = 1920;
 const int Height = 1080;
 
+int raytrace_test();
 
 
 #endif

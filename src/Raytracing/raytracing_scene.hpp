@@ -7,66 +7,60 @@
 #include "../log/log.hpp"
 
 class RayTracingScene : public Widget
-{
-    public:
-        RayTracingScene(unsigned int sphereCount): m_sphereArrCapacity(sphereCount), Widget()
-        {
-            m_sphereArr = new Sphere*[m_sphereArrCapacity];
-            m_pixels    = new sf::Uint8 [m_height * m_width * 4];
-        }
-
-        RayTracingScene(): Widget()
-        {
-            m_pixels    = new sf::Uint8 [m_height * m_width * 4];
-        }
-
-        ~RayTracingScene()
-        {
-            delete[] m_sphereArr;
-            delete[] m_pixels;
-        }
-
-        void addSphere(Sphere* sphere)
-        {
-            if (m_sphereCount < m_sphereArrCapacity)
-            {
-                m_sphereArr[m_sphereCount] = sphere;
-                m_sphereCount++;
-            }
-            else
-            {
-                LOG_CUR_VAR(m_sphereCount);
-                LOG_CUR_VAR(m_sphereArrCapacity);
-            }
-        };
-
-        void setCapacity(unsigned int capacity)
-        {
-            if (m_sphereArr == nullptr && capacity > 0)
-            {
-                m_sphereArrCapacity = capacity;
-                m_sphereArr = new Sphere*[capacity];
-            }
-            else
-            {
-                LOG_MSG("[ERROR]: Scene memory is already allocated");
-                logPrintVar(m_sphereArr);
-                assert(0);
-            }
-        }
-
-        void deleteSphere()
-        {
-            m_sphereCount--;
-            m_sphereArr[m_sphereCount] = nullptr;
-        }
-
+{ 
     private:
 
-        sf::Uint8* m_pixels = nullptr;
-        unsigned int m_sphereArrCapacity    = 0;
-        unsigned int m_sphereCount          = 0;
-        Sphere** m_sphereArr = nullptr;
+        sf::Texture texture_{};
+        sf::Sprite  sprite_{};
+        sf::Uint8*  pixels_{};
+
+    public:
+
+        RayTracingScene(){
+        };
+
+        RayTracingScene(unsigned x_size, unsigned y_size):Widget(x_size, y_size),
+            texture_{},
+            sprite_{}
+            {
+                pixels_ = new sf::Uint8[m_width * m_height * 4];
+
+                texture_.create(m_width, m_height);
+                texture_.update(pixels_, m_width, m_height, 0, 0);
+                
+                sprite_.setTexture(texture_);
+            }
+
+        ~RayTracingScene()
+            {
+                delete[] pixels_;
+            }
+
+        void _init()
+        {
+            pixels_ = new sf::Uint8[m_width * m_height * 4];
+
+            texture_.create(m_width, m_height);
+            texture_.update(pixels_, m_width, m_height, 0, 0);
+                
+            sprite_.setTexture(texture_);
+        }
+
+        bool set_pixel(const Vector& pxl_pos,          const PGL::PsColor& pxl_val, unsigned char alpha);
+        bool set_pixel(unsigned x_pos, unsigned y_pos, const PGL::PsColor& pxl_val, unsigned char alpha);
+
+        PGL::PsColor get_pixel(const Vector& pxl_pos,          unsigned char* alpha);
+        PGL::PsColor get_pixel(unsigned x_pos, unsigned y_pos, unsigned char* alpha);
+        
+        void pixels_update()
+        {
+            texture_.update(pixels_, m_width, m_height, 0, 0);
+        }
+
+        void pixels_draw()
+        {
+            PGL::Graphics::getInstance()->m_window.draw(sprite_);
+        }
 };
 
 

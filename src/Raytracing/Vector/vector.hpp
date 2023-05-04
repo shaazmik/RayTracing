@@ -2,7 +2,7 @@
 #define VECTOR_HPP
 
 #include <stdio.h>
-#include "../my_math.hpp"
+#include "../../my_math.hpp"
 
 class Vector
 {
