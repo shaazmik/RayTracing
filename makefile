@@ -1,5 +1,15 @@
-all:
-	clang++ -O3 ./src/main.cpp ./src/Raytracing/colour.cpp ./src/Raytracing/raytracing_test.cpp ./src/Raytracing/raytracing_scene.cpp ./src/Raytracing/CoordSys/coordsys.cpp ./src/Raytracing/Scene_objects/scene_objects.cpp ./src/Raytracing/quadratic_equation/quadratic_equation.cpp ./src/Graphics/pscolor.cpp ./src/Raytracing/raytracing.cpp ./src/Widget_manager/widget_manager.cpp ./src/Raytracing/Vector/vector.cpp ./src/Widget/widget.cpp ./src/log/log.cpp ./src/Graphics/graphics.cpp -o a.out -g -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system
+CXX = clang++
+CXXFLAGS = -O3 -g -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system
+SRC = $(wildcard ./src/*.cpp ./src/*/*.cpp)
+OBJ = $(SRC:.cpp=.o)
 
-dev:
-	clang++ -O3 ./src/main.cpp ./src/Raytracing/colour.cpp ./src/Raytracing/raytracing_test.cpp ./src/Raytracing/raytracing_scene.cpp ./src/Raytracing/CoordSys/coordsys.cpp ./src/Raytracing/Scene_objects/scene_objects.cpp ./src/Raytracing/quadratic_equation/quadratic_equation.cpp ./src/Graphics/pscolor.cpp ./src/Raytracing/raytracing.cpp ./src/Widget_manager/widget_manager.cpp ./src/Raytracing/Vector/vector.cpp ./src/Widget/widget.cpp ./src/log/log.cpp ./src/Graphics/graphics.cpp  -o a.out -g -std=c++17 -lsfml-graphics -lsfml-window -lsfml-system -fsanitize=address,leak
+all: a.out
+
+a.out: $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+dev: CXXFLAGS += -fsanitize=address,leak
+dev: a.out
+
+clean:
+	rm -f $(OBJ) a.out
